@@ -14,13 +14,17 @@ const Products = () => {
 
     const {user} = useAuth() ;
     const axiosSecure = useAxiosSecure() ;
-    const [active, setActive] = useState(1);
-    const [search, setSearch] = useState('');
+    const [active , setActive] = useState(1);
+    const [search , setSearch] = useState('');
+    const [category , setCategory] = useState('');
+    const [brand , setBrand] = useState('');
+    const [price , setPrice] = useState('');
+    const [priceSort , setPSort] = useState('');
     
     const {data : books = []} = useQuery({
-        queryKey : ['books' , user?.email , active , search] ,
+        queryKey : ['books' , user?.email , active , search , category , brand , price , priceSort] ,
         queryFn : async () => {
-            const {data} = await axiosSecure.get(`/products?currentPage=${active}&search=${search}`) ;
+            const {data} = await axiosSecure.get(`/products?currentPage=${active}&search=${search}&category=${category}`) ;
             return data ;
         }
     })
@@ -61,21 +65,35 @@ const Products = () => {
             <div className="my-3 grid grid-cols-5 gap-3 w-full">
                 <Input onChange={(e) => {setSearch(e.target.value) , setActive(1)}} name="search" label="Search" color="white" className="gro"/>
 
-                <Select name="category" label="Filter By Category">
-                    <Option>Material Tailwind HTML</Option>
+                <Select onChange={(e) => {setCategory(e) , setActive(1)}} name="category" label="Filter By Category">
+                    <Option value="Web Development">Web Development</Option>
+                    <Option value="Software Development">Software Development</Option>
+                    <Option value="Version Control">Version Control</Option>
+                    <Option value="Programming">Programming</Option>
                 </Select>
 
-                <Select name="brand" label="Filter By Brand">
-                    <Option>Material Tailwind HTML</Option>
+                <Select onChange={(e) => {setBrand(e) , setActive(1)}} name="brand" label="Filter By Brand">
+                    <Option value="Tech Books Publishing">Tech Books Publishing</Option>
+                    <Option value="Big Nerd Ranch">Big Nerd Ranch</Option>
+                    <Option value="Addison-Wesley">Addison-Wesley</Option>
+                    <Option value="Prentice Hall">Prentice Hall</Option>
+                    <Option value="O'Reilly Media">O'Reilly Media</Option>
                 </Select>
 
-                <Select name="PriceRange" label="Filter By Price Range">
-                    <Option>Material Tailwind HTML</Option>
+                <Select onChange={(e) => {setPrice(e) , setActive(1)}} name="PriceRange" label="Filter By Price Range">
+                    <Option value="1 - 10">$ 1 - 10</Option>
+                    <Option value="11 - 20">$ 11 - 20</Option>
+                    <Option value="21 - 30">$ 21 - 30</Option>
+                    <Option value="31 - 40">$ 31 - 40</Option>
+                    <Option value="41 - 50">$ 41 - 50</Option>
+                    <Option value="51 - 60">$ 51 - 60</Option>
+                    <Option value="61 - 70">$ 61 - 70</Option>
                 </Select>
 
                 <div className="flex items-center gap-3">
-                    <Select name="sortByPrice" label="Sort By Price">
-                        <Option>Material Tailwind HTML</Option>
+                    <Select onChange={(e) => {setPSort(e) , setActive(1)}} name="sortByPrice" label="Sort By Price">
+                        <Option value="High To Low">High To Low</Option>
+                        <Option value="Low To High">Low To High</Option>
                     </Select>
                     <button className="bg-transparent border px-3 py-3 rounded-lg hover:border-gray-500 duration-300"><TfiReload /></button>
                 </div>
