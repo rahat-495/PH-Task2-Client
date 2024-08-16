@@ -59,7 +59,7 @@ const Products = () => {
             <h1 className="gro text-4xl font-semibold mt-20">Products</h1>
 
             <div className="my-3 grid grid-cols-5 gap-3 w-full">
-                <Input onChange={(e) => setSearch(e.target.value)} name="search" label="Search" color="white" className="gro"/>
+                <Input onChange={(e) => {setSearch(e.target.value) , setActive(1)}} name="search" label="Search" color="white" className="gro"/>
 
                 <Select name="category" label="Filter By Category">
                     <Option>Material Tailwind HTML</Option>
