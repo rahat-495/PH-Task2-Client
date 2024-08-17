@@ -50,7 +50,7 @@ const Products = () => {
             const pages = [...Array(numberOfPages > 0 && numberOfPages).keys()] ;
             setPages(pages) ;
         }
-    } , [search , category , brand , price , priceSort , count?.count])
+    } , [search , category , brand , price , priceSort , count?.count , books])
 
     const getItemProps = (index) =>
         ({

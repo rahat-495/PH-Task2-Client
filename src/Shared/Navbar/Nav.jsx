@@ -207,7 +207,7 @@ const Nav = () => {
                         <h1 className="gro text-lg font-semibold text-black">{user?.uid.slice(0,14) + '...'}</h1>
                   </Tooltip>
                 </div> :
-                <div className="flex items-center gap-x-1">
+                <div className="flex flex-col items-center gap-1">
                   <Link to={"/login"}>
                     <Button
                       variant="text"
