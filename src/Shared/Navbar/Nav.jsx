@@ -40,7 +40,7 @@ const Nav = () => {
               : ""
           }
         >
-          <NavLinks path={"/"} label={"Home"} />
+          <NavLinks label={"Home"} />
         </NavLink>
       </Typography>
 
@@ -55,7 +55,7 @@ const Nav = () => {
               : ""
           }
         >
-          <NavLinks path={"/products"} label={"Products"} />
+          <NavLinks label={"Products"} />
         </NavLink>
       </Typography>
     </ul>
