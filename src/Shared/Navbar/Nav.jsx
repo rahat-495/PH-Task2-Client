@@ -191,7 +191,7 @@ const Nav = () => {
           <MobileNav open={openNav} className="">
             
             <div className="flex items-start justify-between">
-              <div className="">
+              <div className="text-black">
                 {navList}
               </div>
 
