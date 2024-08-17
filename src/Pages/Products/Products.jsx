@@ -5,7 +5,7 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { Button, Card, CardBody, CardFooter, CardHeader, Input, Option, Select } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IconButton } from "@material-tailwind/react";
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
 import { FaRotate } from "react-icons/fa6";
@@ -21,6 +21,7 @@ const Products = () => {
     const [price , setPrice] = useState('');
     const [priceSort , setPSort] = useState('');
     const [reset , setReset] = useState(false);
+    const [pages , setPages] = useState([]);
     
     const {data : books = []} = useQuery({
         queryKey : ['books' , user?.email , active , search , category , brand , price , priceSort] ,
@@ -38,8 +39,18 @@ const Products = () => {
         }
     })
 
-    const numberOfPages = Math.round(count?.count / 8) ;
-    const pages = [...Array(numberOfPages > 0 && numberOfPages).keys()] ;
+    useEffect(() => {
+        if(search || category || brand || price || priceSort){
+            const numberOfPages = Math.round(books?.count / 8) ;
+            const pages = [...Array(numberOfPages > 0 && numberOfPages).keys()] ;
+            setPages(pages) ;
+        }
+        else{
+            const numberOfPages = Math.round(count?.count / 8) ;
+            const pages = [...Array(numberOfPages > 0 && numberOfPages).keys()] ;
+            setPages(pages) ;
+        }
+    } , [search , category , brand , price , priceSort , count?.count])
 
     const getItemProps = (index) =>
         ({
@@ -113,6 +124,36 @@ const Products = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
                 {
+                    search || category || brand || price ?
+                    books?.result?.map((book) => 
+                    <div key={book?._id} className="h-full">
+                        <Card className="mt-6 h-full relative w-[350px]">
+                            <CardHeader color="blue-gray" className="relative h-56 mt-8">
+                                <img
+                                className="w-fit mx-auto h-full"
+                                src={book?.coverImage}
+                                alt="card-image"
+                                />
+                            </CardHeader>
+                            <CardBody className="mb-6">
+                                
+                                <h1 className="gro text-lg text-black font-semibold">{book?.bookTitle}</h1>
+                                <p className="gro text-lg text-black">{book?.description}</p>
+                                <div className="flex items-center justify-between">
+                                    <p className="gro text-lg text-black"><span className="font-semibold">Price :</span>${book?.price}</p>
+                                    <p className="gro text-lg text-black flex items-center gap-1"><span className="font-semibold">Rating :</span>{book?.ratings} <FaStar className="text-orange-600"/></p>
+                                </div>
+                                <p className="gro text-lg text-black"><span className="font-semibold">Category :</span> {book?.category}</p>
+                                <p className="gro text-lg text-black"><span className="font-semibold">Creation Date : </span> {book?.creationDate.slice(0 , 10)}</p>
+                                <p className="gro text-lg text-black"><span className="font-semibold">Creation Time : </span> {book?.creationDate.slice(11)}</p>
+                                <p className="gro text-lg text-black"><span className="font-semibold">Brand : </span> {book?.brandName}</p>
+
+                            </CardBody>
+                            <CardFooter className="pt-0 absolute w-full bottom-0">
+                                <Link to={'/products'} className=""><Button className="w-full capitalize gro ">Read More</Button></Link>
+                            </CardFooter>
+                        </Card>
+                    </div>) : 
                     books?.map((book) => 
                     <div key={book?._id} className="h-full">
                         <Card className="mt-6 h-full relative w-[350px]">
@@ -141,7 +182,7 @@ const Products = () => {
                                 <Link to={'/products'} className=""><Button className="w-full capitalize gro ">Read More</Button></Link>
                             </CardFooter>
                         </Card>
-                    </div>)
+                    </div>) 
                 }
             </div>
 
