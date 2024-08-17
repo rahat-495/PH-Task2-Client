@@ -145,11 +145,11 @@ const Products = () => {
                 }
             </div>
 
-            <div className="flex items-center my-3 gap-4">
+            <div className="flex-col items-start lg:flex-row flex lg:items-center my-3 gap-1 lg:gap-4">
 
                 <Button
                     variant="text"
-                    className="flex gro capitalize text-lg text-white items-center gap-2"
+                    className="flex gro capitalize text-lg text-white items-center gap-2 -ml-5 lg:-ml-0"
                     onClick={prev}
                     disabled={active === 1}
                 >
@@ -164,7 +164,7 @@ const Products = () => {
 
                 <Button
                     variant="text"
-                    className="flex gro capitalize text-lg text-white items-center gap-2"
+                    className="flex gro capitalize text-lg text-white items-center gap-2 ml-[260px] lg:ml-0"
                     onClick={next}
                     disabled={active === pages.length}
                 >
