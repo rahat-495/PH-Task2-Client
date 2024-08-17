@@ -106,7 +106,7 @@ const Products = () => {
                         <Option value="High To Low">High To Low</Option>
                         <Option value="Low To High">Low To High</Option>
                     </Select>
-                    <button onClick={() => {handleReset() , setReset(true) , setTimeout(() => (setReset(false)) , 500)}} className="bg-transparent border px-3 py-3 rounded-lg hover:border-gray-500 duration-300">{ reset ? <FaRotate className="animate-spin"/> : <FaRotate /> }</button>
+                    <button onClick={() => {handleReset() , setReset(true) , setTimeout(() => (setReset(false)) , 450)}} className="bg-transparent border px-3 py-3 rounded-lg hover:border-gray-500 duration-300">{ reset ? <FaRotate className="animate-spin"/> : <FaRotate /> }</button>
                 </div>
 
             </div>
