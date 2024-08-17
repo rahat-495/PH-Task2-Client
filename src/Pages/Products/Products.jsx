@@ -8,7 +8,7 @@ import { FaStar } from "react-icons/fa";
 import { useState } from "react";
 import { IconButton } from "@material-tailwind/react";
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
-import { TfiReload } from "react-icons/tfi";
+import { FaRotate } from "react-icons/fa6";
 
 const Products = () => {
 
@@ -20,6 +20,7 @@ const Products = () => {
     const [brand , setBrand] = useState('');
     const [price , setPrice] = useState('');
     const [priceSort , setPSort] = useState('');
+    const [reset , setReset] = useState(false);
     
     const {data : books = []} = useQuery({
         queryKey : ['books' , user?.email , active , search , category , brand , price , priceSort] ,
@@ -57,22 +58,32 @@ const Products = () => {
         setActive(active - 1);
     };
 
+    const handleReset = () => {
+        setBrand('') ;
+        setCategory('') ;
+        setPSort('') ;
+        setPrice('') ;
+        setSearch('') ;    
+        setReset(false) ;
+    }
+
     return (
         <div className="flex flex-col items-center gap-3 mb-16">
             
             <h1 className="gro text-4xl font-semibold mt-20">Products</h1>
 
             <div className="my-3 grid grid-cols-5 gap-3 w-full">
-                <Input onChange={(e) => {setSearch(e.target.value) , setActive(1)}} name="search" label="Search" color="white" className="gro"/>
+                <Input value={search} onChange={(e) => {setSearch(e.target.value) , setActive(1)}} name="search" label="Search" color="white" className="gro"/>
 
-                <Select onChange={(e) => {setCategory(e) , setActive(1)}} name="category" label="Filter By Category">
+                <Select value={category} onChange={(e) => {setCategory(e) , setActive(1)}} name="category" label="Filter By Category">
                     <Option value="Web Development">Web Development</Option>
-                    <Option value="Software Development">Software Development</Option>
-                    <Option value="Version Control">Version Control</Option>
+                    <Option value="Computer Science">Computer Science</Option>
+                    <Option value="Artificial Intelligence">Artificial Intelligence</Option>
+                    <Option value="Data Science">Data Science</Option>
                     <Option value="Programming">Programming</Option>
                 </Select>
 
-                <Select onChange={(e) => {setBrand(e) , setActive(1)}} name="brand" label="Filter By Brand">
+                <Select value={brand} onChange={(e) => {setBrand(e) , setActive(1)}} name="brand" label="Filter By Brand">
                     <Option value="Tech Books Publishing">Tech Books Publishing</Option>
                     <Option value="Big Nerd Ranch">Big Nerd Ranch</Option>
                     <Option value="Addison-Wesley">Addison-Wesley</Option>
@@ -80,8 +91,8 @@ const Products = () => {
                     <Option value="O'Reilly Media">O'Reilly Media</Option>
                 </Select>
 
-                <Select onChange={(e) => {setPrice(e) , setActive(1)}} name="PriceRange" label="Filter By Price Range">
-                    <Option value="00 - 10">$ 1 - 10</Option>
+                <Select value={price} onChange={(e) => {setPrice(e) , setActive(1)}} name="PriceRange" label="Filter By Price Range">
+                    <Option value="00 - 10">$ 01 - 10</Option>
                     <Option value="11 - 20">$ 11 - 20</Option>
                     <Option value="21 - 30">$ 21 - 30</Option>
                     <Option value="31 - 40">$ 31 - 40</Option>
@@ -91,11 +102,11 @@ const Products = () => {
                 </Select>
 
                 <div className="flex items-center gap-3">
-                    <Select onChange={(e) => {setPSort(e) , setActive(1)}} name="sortByPrice" label="Sort By Price">
+                    <Select value={priceSort} onChange={(e) => {setPSort(e) , setActive(1)}} name="sortByPrice" label="Sort By Price">
                         <Option value="High To Low">High To Low</Option>
                         <Option value="Low To High">Low To High</Option>
                     </Select>
-                    <button className="bg-transparent border px-3 py-3 rounded-lg hover:border-gray-500 duration-300"><TfiReload /></button>
+                    <button onClick={() => {handleReset() , setReset(true) , setTimeout(() => (setReset(false)) , 500)}} className="bg-transparent border px-3 py-3 rounded-lg hover:border-gray-500 duration-300">{ reset ? <FaRotate className="animate-spin"/> : <FaRotate /> }</button>
                 </div>
 
             </div>

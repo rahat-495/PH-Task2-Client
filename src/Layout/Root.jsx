@@ -5,7 +5,7 @@ import Nav from "../Shared/Navbar/Nav";
 
 const Root = () => {
     return (
-        <div className="">
+        <div className="overflow-x-hidden">
 
             <div className="sticky top-0 z-50 bg-[#D1D3D6]">
                 <Nav/>
