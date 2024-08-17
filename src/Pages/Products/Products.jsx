@@ -24,7 +24,7 @@ const Products = () => {
     const {data : books = []} = useQuery({
         queryKey : ['books' , user?.email , active , search , category , brand , price , priceSort] ,
         queryFn : async () => {
-            const {data} = await axiosSecure.get(`/products?currentPage=${active}&search=${search}&category=${category}`) ;
+            const {data} = await axiosSecure.get(`/products?currentPage=${active}&search=${search}&category=${category}&brand=${brand}&price=${price}&priceSort=${priceSort}`) ;
             return data ;
         }
     })
@@ -37,7 +37,7 @@ const Products = () => {
         }
     })
 
-    const numberOfPages = Math.round(count?.count / 12) ;
+    const numberOfPages = Math.round(count?.count / 8) ;
     const pages = [...Array(numberOfPages > 0 && numberOfPages).keys()] ;
 
     const getItemProps = (index) =>
@@ -81,7 +81,7 @@ const Products = () => {
                 </Select>
 
                 <Select onChange={(e) => {setPrice(e) , setActive(1)}} name="PriceRange" label="Filter By Price Range">
-                    <Option value="1 - 10">$ 1 - 10</Option>
+                    <Option value="00 - 10">$ 1 - 10</Option>
                     <Option value="11 - 20">$ 11 - 20</Option>
                     <Option value="21 - 30">$ 21 - 30</Option>
                     <Option value="31 - 40">$ 31 - 40</Option>
@@ -123,6 +123,7 @@ const Products = () => {
                                 <p className="gro text-lg text-black"><span className="font-semibold">Category :</span> {book?.category}</p>
                                 <p className="gro text-lg text-black"><span className="font-semibold">Creation Date : </span> {book?.creationDate.slice(0 , 10)}</p>
                                 <p className="gro text-lg text-black"><span className="font-semibold">Creation Time : </span> {book?.creationDate.slice(11)}</p>
+                                <p className="gro text-lg text-black"><span className="font-semibold">Brand : </span> {book?.brandName}</p>
 
                             </CardBody>
                             <CardFooter className="pt-0 absolute w-full bottom-0">
