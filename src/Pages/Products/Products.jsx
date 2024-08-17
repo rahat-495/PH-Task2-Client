@@ -68,11 +68,11 @@ const Products = () => {
     }
 
     return (
-        <div className="flex flex-col items-center gap-3 mb-16">
+        <div className="flex flex-col items-center gap-3 mb-16 mx-3 lg:mx-0">
             
             <h1 className="gro text-4xl font-semibold mt-20">Products</h1>
 
-            <div className="my-3 grid grid-cols-5 gap-3 w-full">
+            <div className="my-3 grid grid-cols-1 lg:grid-cols-5 gap-3 w-full">
                 <Input value={search} onChange={(e) => {setSearch(e.target.value) , setActive(1)}} name="search" label="Search" color="white" className="gro"/>
 
                 <Select value={category} onChange={(e) => {setCategory(e) , setActive(1)}} name="category" label="Filter By Category">
